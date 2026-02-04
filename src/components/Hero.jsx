@@ -1,7 +1,7 @@
 import React from 'react';
 import Categories from './Categories';
 
-const Hero = () => {
+const Hero = ({ setSelectedCategory }) => {
     return (
         <section className="relative bg-[#FAFAFA] pt-40 pb-32 lg:pt-52 lg:pb-48">
             {/* Background Wrapper with Overflow Hidden */}
@@ -44,11 +44,11 @@ const Hero = () => {
                             malesuada massa proin cursus elit amet iaculis.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 pt-2">
-                            <button className="bg-accent-yellow text-dark-gray px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 transition-transform hover:scale-105 shadow-[0_10px_20px_-5px_rgba(244,208,63,0.4)]">
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-5 pt-2 w-full sm:w-auto">
+                            <button className="w-full sm:w-auto bg-accent-yellow text-dark-gray px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 transition-transform hover:scale-105 shadow-[0_10px_20px_-5px_rgba(244,208,63,0.4)]">
                                 Order Now
                             </button>
-                            <button className="px-10 py-4 rounded-full font-bold text-dark-gray border border-gray-300 hover:border-dark-gray transition-colors bg-white">
+                            <button className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-dark-gray border border-gray-300 hover:border-dark-gray transition-colors bg-white">
                                 Book a Table
                             </button>
                         </div>
@@ -96,7 +96,7 @@ const Hero = () => {
 
             {/* Categories Section - Integrated */}
             <div className="absolute -bottom-12 w-full z-40 left-0">
-                <Categories />
+                <Categories setSelectedCategory={setSelectedCategory} />
             </div>
 
             {/* Bottom Torn Paper Effect */}

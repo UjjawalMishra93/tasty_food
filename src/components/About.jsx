@@ -8,12 +8,12 @@ const About = () => {
                 <div className="flex flex-col lg:flex-row items-center gap-12">
 
                     {/* Image Side */}
-                    <div className="lg:w-1/2">
-                        <img src="/about-food-combo.png" alt="About Tasty Foods" className="w-full max-w-lg mx-auto drop-shadow-2xl rounded-lg" />
+                    <div className="lg:w-[55%] flex justify-center">
+                        <img src="/about-food-combo.png" alt="About Tasty Foods" className="w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
                     </div>
 
                     {/* Content Side */}
-                    <div className="lg:w-1/2 space-y-6">
+                    <div className="lg:w-[45%] space-y-6">
                         <h2 className="text-3xl md:text-5xl font-bold font-poppins text-dark-gray leading-tight">
                             About Tasty <span className="text-primary-red">Foods</span>
                         </h2>

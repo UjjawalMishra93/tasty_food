@@ -30,7 +30,7 @@ const Blog = () => {
                     Our Latest Foods <span className="text-primary-red">News</span>
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {posts.map((post) => (
                         <div key={post.id} className="group cursor-pointer">
                             <div className="overflow-hidden rounded-2xl mb-4 relative h-60">

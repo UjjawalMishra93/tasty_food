@@ -37,26 +37,26 @@ const Offers = () => {
     return (
         <section className="pt-32 pb-16 bg-white">
             <div className="container mx-auto px-4 md:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {offers.map((offer) => (
                         <div
                             key={offer.id}
-                            className={`${offer.color} rounded-2xl p-6 relative overflow-visible h-48 md:h-56 flex flex-col justify-center shadow-lg transition-transform hover:-translate-y-2`}
+                            className={`${offer.color} rounded-2xl p-6 relative overflow-visible h-auto min-h-[12rem] flex flex-col justify-center shadow-lg transition-transform hover:-translate-y-2`}
                         >
                             {/* Content */}
                             <div className="relative z-10 w-2/3">
-                                <h3 className={`text-3xl font-bold font-poppins mb-1 ${offer.textColor}`}>{offer.title}</h3>
-                                <p className={`text-sm mb-2 opacity-90 ${offer.textColor}`}>Get {offer.discount}</p>
-                                <p className={`text-sm mb-4 opacity-75 ${offer.textColor}`}>Starting From</p>
-                                <span className={`text-2xl font-bold ${offer.textColor}`}>{offer.price}</span>
+                                <h3 className={`text-2xl md:text-3xl font-bold font-poppins mb-1 ${offer.textColor}`}>{offer.title}</h3>
+                                <p className={`text-xs md:text-sm mb-2 opacity-90 ${offer.textColor}`}>Get {offer.discount}</p>
+                                <p className={`text-xs md:text-sm mb-3 md:mb-4 opacity-75 ${offer.textColor}`}>Starting From</p>
+                                <span className={`text-xl md:text-2xl font-bold ${offer.textColor}`}>{offer.price}</span>
                             </div>
 
                             {/* Image */}
-                            <div className="absolute -right-4 top-1/2 -translate-y-1/2 w-40 h-40 md:w-48 md:h-48">
+                            <div className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 group-hover:scale-110 transition-transform duration-500">
                                 <img
                                     src={offer.img}
                                     alt={offer.title}
-                                    className="w-full h-full object-contain drop-shadow-xl hover:scale-110 transition-transform duration-500"
+                                    className="w-full h-full object-contain drop-shadow-xl"
                                 />
                             </div>
                         </div>

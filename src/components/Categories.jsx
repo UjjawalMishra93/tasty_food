@@ -9,21 +9,37 @@ const categories = [
     { id: 6, name: 'Combo', image: '/food-combo.png' },
 ];
 
-const Categories = () => {
+const Categories = ({ setSelectedCategory }) => {
+    const handleCategoryClick = (categoryName) => {
+        if (setSelectedCategory) {
+            setSelectedCategory(categoryName);
+            const element = document.getElementById('popular-foods');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
         <div className="relative z-30 w-full">
             <div className="container mx-auto px-4">
-                <div className="flex flex-wrap justify-center gap-6 lg:gap-16">
+                <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-4 sm:gap-6 lg:gap-16">
                     {categories.map((cat) => (
-                        <div key={cat.id} className="group flex flex-col items-center gap-3 cursor-pointer">
-                            <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full shadow-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 border-4 border-white group-hover:border-primary-red relative overflow-hidden">
+                        <div
+                            key={cat.id}
+                            className="group flex flex-col items-center gap-2 cursor-pointer"
+                            onClick={() => handleCategoryClick(cat.name)}
+                        >
+                            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-white rounded-full shadow-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 border-4 border-white group-hover:border-primary-red relative overflow-hidden">
                                 <img
                                     src={cat.image}
                                     alt={cat.name}
-                                    className="w-16 h-16 md:w-20 md:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
+                                    className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
                                 />
                             </div>
-                            <span className="font-extrabold text-dark-gray text-lg group-hover:text-primary-red transition-colors">{cat.name}</span>
+                            <span className="font-bold text-dark-gray text-xs sm:text-base md:text-lg group-hover:text-primary-red transition-colors text-center leading-tight">
+                                {cat.name}
+                            </span>
                         </div>
                     ))}
                 </div>

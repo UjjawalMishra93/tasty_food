@@ -16,15 +16,15 @@ const foodData = [
 
 const categories = ["All Food", "Burger", "French Fry", "Pasta", "Sandwich", "Cold Drinks", "Combo"];
 
-const PopularFoods = () => {
-    const [activeCategory, setActiveCategory] = useState("All Food");
+const PopularFoods = ({ selectedCategory = "All Food", setSelectedCategory }) => {
+    // const [activeCategory, setActiveCategory] = useState("All Food"); // Removed internal state
 
-    const filteredFoods = activeCategory === "All Food"
+    const filteredFoods = selectedCategory === "All Food"
         ? foodData
-        : foodData.filter(item => item.category === activeCategory);
+        : foodData.filter(item => item.category === selectedCategory);
 
     return (
-        <section className="py-16 bg-white">
+        <section id="popular-foods" className="py-16 bg-white">
             <div className="container mx-auto px-4 md:px-8">
                 <h2 className="text-3xl md:text-5xl font-bold font-poppins text-center text-dark-gray mb-4">
                     Our Popular Tasty <span className="text-primary-red">Foods</span>
@@ -39,8 +39,8 @@ const PopularFoods = () => {
                     {categories.map((cat) => (
                         <button
                             key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={`px-6 py-2 rounded-full border transition-all ${activeCategory === cat
+                            onClick={() => setSelectedCategory ? setSelectedCategory(cat) : null}
+                            className={`px-6 py-2 rounded-full border transition-all ${selectedCategory === cat
                                 ? 'bg-primary-red text-white border-primary-red shadow-lg'
                                 : 'bg-white text-text-gray border-gray-200 hover:border-primary-red hover:text-primary-red'
                                 }`}
