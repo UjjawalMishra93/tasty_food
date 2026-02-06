@@ -22,6 +22,7 @@ const RevealOnScroll = ({ children, width = "100%", zIndex = 0 }) => {
                 initial="hidden"
                 animate={mainControls}
                 transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+                style={{ willChange: "transform, opacity" }}
             >
                 {children}
             </motion.div>

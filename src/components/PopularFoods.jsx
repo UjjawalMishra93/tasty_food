@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
+import { supabase } from '../lib/supabaseClient';
+import { useCart } from '../context/CartContext';
 
 const foodData = [
     { id: 1, name: 'Spicy Burger', price: '$8.50', category: 'Burger', rating: 5, img: '/food-burger.png' },
@@ -17,11 +19,44 @@ const foodData = [
 const categories = ["All Food", "Burger", "French Fry", "Pasta", "Sandwich", "Cold Drinks", "Combo"];
 
 const PopularFoods = ({ selectedCategory = "All Food", setSelectedCategory }) => {
-    // const [activeCategory, setActiveCategory] = useState("All Food"); // Removed internal state
+    const [products, setProducts] = useState(foodData);
+    const [loading, setLoading] = useState(true);
+    const { addToCart } = useCart();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .order('id');
+
+                // Only update if we got data back that isn't empty
+                if (!error && data && data.length > 0) {
+                    setProducts(data);
+                } else if (error) {
+                    // Log error but stick to default data
+                    console.error('Error fetching products:', error);
+                }
+            } catch (err) {
+                console.error('Unexpected error fetching products:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const filteredFoods = selectedCategory === "All Food"
-        ? foodData
-        : foodData.filter(item => item.category === selectedCategory);
+        ? products
+        : products.filter(item => item.category === selectedCategory);
+
+    // Helper to format price whether it's a string (old data) or number (DB data)
+    const formatPrice = (price) => {
+        if (typeof price === 'number') return `$${price.toFixed(2)}`;
+        return price;
+    };
 
     return (
         <section id="popular-foods" className="py-16 bg-white">
@@ -40,7 +75,7 @@ const PopularFoods = ({ selectedCategory = "All Food", setSelectedCategory }) =>
                         <button
                             key={cat}
                             onClick={() => setSelectedCategory ? setSelectedCategory(cat) : null}
-                            className={`px-6 py-2 rounded-full border transition-all ${selectedCategory === cat
+                            className={`px-6 py-2 rounded-full border transition-all btn-premium-click btn-shine ${selectedCategory === cat
                                 ? 'bg-primary-red text-white border-primary-red shadow-lg'
                                 : 'bg-white text-text-gray border-gray-200 hover:border-primary-red hover:text-primary-red'
                                 }`}
@@ -56,7 +91,7 @@ const PopularFoods = ({ selectedCategory = "All Food", setSelectedCategory }) =>
                         <div key={item.id} className="bg-white p-6 rounded-2xl shadow-lg border border-transparent hover:border-light-gray hover:shadow-xl transition-all group">
                             <div className="relative mb-4 h-40 flex items-center justify-center">
                                 <img
-                                    src={item.img}
+                                    src={item.image_url || item.img}
                                     alt={item.name}
                                     className="max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                                 />
@@ -66,15 +101,18 @@ const PopularFoods = ({ selectedCategory = "All Food", setSelectedCategory }) =>
                             <div className="text-center">
                                 <div className="flex justify-center text-accent-yellow mb-2 space-x-1 text-sm">
                                     {[...Array(5)].map((_, i) => (
-                                        <FaStar key={i} className={i < item.rating ? "" : "text-gray-300"} />
+                                        <FaStar key={i} className={i < (item.rating || 5) ? "" : "text-gray-300"} />
                                     ))}
                                 </div>
                                 <h3 className="font-bold text-xl text-dark-gray mb-2">{item.name}</h3>
                                 <p className="text-text-gray text-sm mb-4">Tasty Food</p>
 
                                 <div className="flex items-center justify-between mt-4">
-                                    <span className="text-primary-red font-bold text-xl">{item.price}</span>
-                                    <button className="flex items-center gap-2 bg-text-gray/10 hover:bg-primary-red hover:text-white px-4 py-2 rounded-full transition-colors text-sm font-bold text-dark-gray">
+                                    <span className="text-primary-red font-bold text-xl">{formatPrice(item.price)}</span>
+                                    <button
+                                        onClick={() => addToCart(item)}
+                                        className="flex items-center gap-2 bg-text-gray/10 hover:bg-primary-red hover:text-white px-4 py-2 rounded-full transition-colors text-sm font-bold text-dark-gray btn-premium-click btn-shine"
+                                    >
                                         <FaShoppingCart /> Add to Cart
                                     </button>
                                 </div>
