@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Categories from './Categories';
+import { supabase } from '../lib/supabaseClient';
 
 const Hero = ({ setSelectedCategory, onOpenAuth }) => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        // Check active session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUser(session?.user ?? null);
+        });
+
+        // Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
+    const handleButtonClick = (authMode) => {
+        if (user) {
+            const section = document.getElementById('popular-foods');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            if (onOpenAuth) onOpenAuth(authMode);
+        }
+    };
+
     return (
         <section className="relative bg-[#FAFAFA] pt-40 pb-32 lg:pt-52 lg:pb-48">
             {/* Background Wrapper with Overflow Hidden */}
@@ -45,10 +75,10 @@ const Hero = ({ setSelectedCategory, onOpenAuth }) => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-5 pt-2 w-full sm:w-auto">
-                            <button onClick={() => onOpenAuth && onOpenAuth('login')} className="w-full sm:w-auto bg-accent-yellow text-dark-gray px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 shadow-[0_10px_20px_-5px_rgba(244,208,63,0.4)] btn-premium-click btn-shine">
+                            <button onClick={() => handleButtonClick('login')} className="w-full sm:w-auto bg-accent-yellow text-dark-gray px-10 py-4 rounded-full font-bold text-lg hover:bg-yellow-400 shadow-[0_10px_20px_-5px_rgba(244,208,63,0.4)] btn-premium-click btn-shine">
                                 Order Now
                             </button>
-                            <button onClick={() => onOpenAuth && onOpenAuth('signup')} className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-dark-gray border border-gray-300 hover:border-dark-gray hover:bg-gray-50 bg-white btn-premium-click btn-shine">
+                            <button onClick={() => handleButtonClick('signup')} className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-dark-gray border border-gray-300 hover:border-dark-gray hover:bg-gray-50 bg-white btn-premium-click btn-shine">
                                 Book a Table
                             </button>
                         </div>

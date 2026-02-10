@@ -3,7 +3,7 @@ import { FaCheck, FaArrowRight } from 'react-icons/fa';
 
 const About = () => {
     return (
-        <section className="py-16 md:py-24 bg-white relative">
+        <section id="about" className="py-16 md:py-24 bg-white relative">
             <div className="container mx-auto px-4 md:px-8">
                 <div className="flex flex-col lg:flex-row items-center gap-12">
 

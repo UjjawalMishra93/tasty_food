@@ -82,10 +82,21 @@ const Navbar = ({ onOpenAuth }) => {
                     {/* Desktop Menu */}
                     <div className="hidden lg:flex items-center gap-6 xl:gap-8">
                         <Link to="/" className="font-bold text-dark-gray hover:text-primary-red transition-colors">Home</Link>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red transition-colors flex items-center gap-1">Menu <FaChevronDown className="text-[10px]" /></a>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red transition-colors">Order Food</a>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red transition-colors flex items-center gap-1">Blog <FaChevronDown className="text-[10px]" /></a>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red transition-colors flex items-center gap-1">Pages <FaChevronDown className="text-[10px]" /></a>
+                        <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red transition-colors">Menu</a>
+                        <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red transition-colors">Order Food</a>
+                        <a href="#blog" className="font-bold text-dark-gray hover:text-primary-red transition-colors">Blog</a>
+
+                        {/* Pages Dropdown */}
+                        <div className="relative group/pages">
+                            <button className="font-bold text-dark-gray hover:text-primary-red transition-colors flex items-center gap-1">
+                                Pages <FaChevronDown className="text-[10px] group-hover/pages:rotate-180 transition-transform" />
+                            </button>
+                            <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-xl rounded-xl py-2 opacity-0 invisible group-hover/pages:opacity-100 group-hover/pages:visible transition-all duration-300 transform translate-y-2 group-hover/pages:translate-y-0 z-50 border border-gray-100">
+                                <a href="#about" className="block px-4 py-2 text-sm font-bold text-dark-gray hover:text-primary-red hover:bg-gray-50 transition-colors">About Us</a>
+                                <a href="#gallery" className="block px-4 py-2 text-sm font-bold text-dark-gray hover:text-primary-red hover:bg-gray-50 transition-colors">Gallery</a>
+                                <a href="#testimonials" className="block px-4 py-2 text-sm font-bold text-dark-gray hover:text-primary-red hover:bg-gray-50 transition-colors">Testimonials</a>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Right Info & CTA */}
@@ -176,13 +187,19 @@ const Navbar = ({ onOpenAuth }) => {
                         )}
 
                         <Link to="/" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red flex justify-between">Menu <FaChevronDown /></a>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red">Order Food</a>
+                        <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Menu</a>
+                        <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Order Food</a>
                         <Link to="/cart" className="font-bold text-dark-gray hover:text-primary-red flex justify-between" onClick={() => setMobileMenuOpen(false)}>
                             Cart <span className="bg-primary-red text-white text-xs px-2 py-0.5 rounded-full">{cartCount}</span>
                         </Link>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red flex justify-between">Blog <FaChevronDown /></a>
-                        <a href="#" className="font-bold text-dark-gray hover:text-primary-red flex justify-between">Pages <FaChevronDown /></a>
+                        <a href="#blog" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Blog</a>
+
+                        <div className="flex flex-col gap-3 pl-4 border-l-2 border-gray-100 mt-1">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Pages</span>
+                            <a href="#about" className="font-bold text-dark-gray hover:text-primary-red text-sm" onClick={() => setMobileMenuOpen(false)}>About Us</a>
+                            <a href="#gallery" className="font-bold text-dark-gray hover:text-primary-red text-sm" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
+                            <a href="#testimonials" className="font-bold text-dark-gray hover:text-primary-red text-sm" onClick={() => setMobileMenuOpen(false)}>Testimonials</a>
+                        </div>
 
                         <div className="h-px bg-gray-100 my-2"></div>
 

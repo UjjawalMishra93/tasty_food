@@ -24,7 +24,7 @@ const posts = [
 
 const Blog = () => {
     return (
-        <section className="py-16 bg-white">
+        <section id="blog" className="py-16 bg-white">
             <div className="container mx-auto px-4 md:px-8">
                 <h2 className="text-3xl md:text-5xl font-bold font-poppins text-center text-dark-gray mb-12">
                     Our Latest Foods <span className="text-primary-red">News</span>

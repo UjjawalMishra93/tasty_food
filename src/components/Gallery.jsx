@@ -40,7 +40,7 @@ const Gallery = () => {
     }, [selectedIndex]);
 
     return (
-        <section className="py-24 bg-white relative">
+        <section id="gallery" className="py-24 bg-white relative">
             <div className="container mx-auto px-4 md:px-8">
                 <div className="text-center mb-16">
                     <span className="text-primary-red font-bold tracking-wider uppercase text-sm">Our Gallery</span>

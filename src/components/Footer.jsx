@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPhoneAlt, FaEnvelo
 
 const Footer = () => {
     return (
-        <footer className="bg-[#F9FAFB] pt-16 pb-12 torn-paper-top relative z-10">
+        <footer id="footer" className="bg-[#F9FAFB] pt-16 pb-12 torn-paper-top relative z-10">
             <div className="container mx-auto px-6 md:px-12">
 
                 {/* Minimal Newsletter Bar */}
