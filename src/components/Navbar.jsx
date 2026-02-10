@@ -45,6 +45,16 @@ const Navbar = ({ onOpenAuth }) => {
         navigate('/');
     };
 
+    const handleCartClick = (e) => {
+        if (!user) {
+            e.preventDefault();
+            setMobileMenuOpen(false);
+            if (onOpenAuth) onOpenAuth('login');
+        } else {
+            setMobileMenuOpen(false);
+        }
+    };
+
     return (
         <header className="fixed w-full z-50 transition-all duration-300">
             {/* Top Bar */}
@@ -113,7 +123,7 @@ const Navbar = ({ onOpenAuth }) => {
                         </div>
 
                         {/* Cart */}
-                        <Link to="/cart" className="relative cursor-pointer group">
+                        <Link to="/cart" onClick={handleCartClick} className="relative cursor-pointer group">
                             <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-dark-gray group-hover:bg-primary-red group-hover:text-white transition-colors">
                                 <FaShoppingBag />
                             </div>
@@ -189,7 +199,7 @@ const Navbar = ({ onOpenAuth }) => {
                         <Link to="/" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Home</Link>
                         <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Menu</a>
                         <a href="#popular-foods" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Order Food</a>
-                        <Link to="/cart" className="font-bold text-dark-gray hover:text-primary-red flex justify-between" onClick={() => setMobileMenuOpen(false)}>
+                        <Link to="/cart" className="font-bold text-dark-gray hover:text-primary-red flex justify-between" onClick={handleCartClick}>
                             Cart <span className="bg-primary-red text-white text-xs px-2 py-0.5 rounded-full">{cartCount}</span>
                         </Link>
                         <a href="#blog" className="font-bold text-dark-gray hover:text-primary-red" onClick={() => setMobileMenuOpen(false)}>Blog</a>

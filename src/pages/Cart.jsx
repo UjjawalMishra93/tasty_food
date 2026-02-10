@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import Navbar from '../components/Navbar'; // Assuming we want the navbar here too
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AuthModal from '../components/AuthModal';
 import { FaTrash, FaMinus, FaPlus, FaArrowRight, FaShoppingBag, FaArrowLeft } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Cart = () => {
     const { cartItems, updateQuantity, removeFromCart, cartTotal, isLoading, user } = useCart();
+    const [authOpen, setAuthOpen] = useState(false);
+    const [authMode, setAuthMode] = useState('login');
+
+    const openAuth = (mode = 'login') => {
+        setAuthMode(mode);
+        setAuthOpen(true);
+    };
 
     // Tax and Delivery could be dynamic, hardcoded for now
     const deliveryFee = cartTotal > 50 ? 0 : 5.00;
@@ -24,7 +32,8 @@ const Cart = () => {
 
     return (
         <div className="bg-light-gray min-h-screen font-inter flex flex-col">
-            <Navbar />
+            <Navbar onOpenAuth={openAuth} />
+            <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} initialMode={authMode} />
 
             <main className="flex-grow container mx-auto px-4 md:px-8 pt-40 pb-20 md:pt-48 md:pb-24">
                 <motion.div
@@ -46,9 +55,9 @@ const Cart = () => {
                     >
                         <h2 className="text-2xl font-bold text-dark-gray mb-4">Please Login to View Cart</h2>
                         <p className="text-text-gray mb-8">You need to be logged in to manage your cart items.</p>
-                        <Link to="/login" className="bg-primary-red text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-700 transition-all">
+                        <button onClick={() => openAuth('login')} className="bg-primary-red text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-700 transition-all">
                             Login Now
-                        </Link>
+                        </button>
                     </motion.div>
                 ) : cartItems.length === 0 ? (
                     <motion.div
