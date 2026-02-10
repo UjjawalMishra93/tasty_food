@@ -174,10 +174,21 @@ const Navbar = ({ onOpenAuth }) => {
                         )}
                     </div>
 
-                    {/* Mobile Toggle */}
-                    <button className="lg:hidden text-2xl text-dark-gray" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                        {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-                    </button>
+                    {/* Mobile Cart & Toggle */}
+                    <div className="flex items-center gap-4 lg:hidden">
+                        {/* Mobile Cart */}
+                        <Link to="/cart" onClick={handleCartClick} className="relative cursor-pointer text-dark-gray text-xl">
+                            <FaShoppingBag />
+                            <span className="absolute -top-2 -right-2 bg-primary-red text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
+                                {cartCount}
+                            </span>
+                        </Link>
+
+                        {/* Mobile Toggle */}
+                        <button className="text-2xl text-dark-gray" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Mobile Menu */}
