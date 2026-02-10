@@ -121,7 +121,6 @@ body {
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
   scrollbar-width: none !important;
-  overscroll-behavior: none;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
